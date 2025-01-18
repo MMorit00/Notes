@@ -218,6 +218,129 @@ git push -u origin main
 
 ---
 
+_**User**_
+
+这是怎么回事 
+
+---
+
+_**Assistant**_
+
+
+
+这个错误是因为你尝试运行 `npm run dev` 命令，但是系统中没有安装 `nodemon` 包。Nodemon 是一个开发工具，用于监视代码变化并自动重启 Node.js 应用。
+
+让我们来解决这个问题：
+
+1. 首先安装 nodemon 作为开发依赖：
+```bash
+npm install --save-dev nodemon
+```
+
+2. 然后修改 package.json 文件，添加开发脚本：
+
+```json:package.json
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "Notes API project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
+```
+
+安装完成后，你就可以使用以下命令来运行项目：
+
+- 开发环境（使用 nodemon，代码变化时自动重启）：
+```bash
+npm run dev
+```
+
+- 生产环境：
+```bash
+npm start
+```
+
+这样就可以正常运行项目了。nodemon 会监视你的文件变化，当你修改代码时会自动重启服务器，这样可以提高开发效率。
+
+---
+
+_**User**_
+
+这怎么回事 
+
+---
+
+_**Assistant**_
+
+
+
+这个错误 `EADDRINUSE: address already in use :::3000` 表示端口 3000 已经被占用了。这通常是因为：
+
+1. 之前运行的服务器实例还没有完全关闭
+2. 或者有其他应用程序正在使用这个端口
+
+解决方案：
+
+1. 找到并关闭占用端口 3000 的进程：
+
+在 Mac/Linux 上：
+```bash
+# 查找占用 3000 端口的进程
+lsof -i :3000
+
+# 终止该进程 (xxx 是进程的 PID)
+kill -9 xxx
+```
+
+2. 或者修改 index.js 使用其他端口：
+
+```javascript:src/index.js
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const app = express();
+
+app.get('/notes', (req, res) => {
+    fs.readFile(path.join(__dirname, 'notes.json'), 'utf-8', (err, data) => {
+        if (err) {
+            return console.error(err); 
+        } else {
+           res.send(data);
+        }
+    });
+});
+
+// 改用 3001 或其他未被占用的端口
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+```
+
+选择其中一种方法后，重新运行：
+```bash
+npm run dev
+```
+
+这样应该就能正常启动服务器了。建议使用第一种方法（关闭占用端口的进程），因为这样可以保持原有的端口号，避免可能的配置不一致问题。
+
+---
+
 
 
 ---
