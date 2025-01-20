@@ -1,6 +1,6 @@
 ## SpecStory
 
-## Untitled (2025/1/18 08:59:31)
+## Understanding the require statement in Node.js (2025/1/18 08:59:31)
 
 _**User**_
 
@@ -58,6 +58,58 @@ mongoose.connection.on('disconnected', () => {
 ```
 
 通过这样的设置，你可以更好地监控数据库连接状态，在出现问题时及时发现和处理。
+
+---
+
+_**User**_
+
+@Commit (Diff of Working State) 
+@comgit.md 
+
+---
+
+_**Assistant**_
+
+根据提供的代码变更，我来帮你编写提交信息和 Git 命令：
+
+```markdown
+feat(server): 添加MongoDB连接和开发环境配置
+
+- 配置MongoDB数据库连接和监听事件
+- 添加nodemon用于开发环境自动重启
+- 更新package.json添加start和dev脚本
+```
+
+让我们一步步执行 Git 命令：
+
+1. 首先添加所有更改到暂存区：
+```bash
+git add .
+```
+
+2. 提交更改：
+```bash
+git commit -m "feat(server): 添加MongoDB连接和开发环境配置
+
+- 配置MongoDB数据库连接和监听事件
+- 添加nodemon用于开发环境自动重启
+- 更新package.json添加start和dev脚本"
+```
+
+3. 推送到远程仓库：
+```bash
+git push origin main
+```
+
+4. 查看提交历史：
+```bash
+git log
+```
+
+5. 查看最新提交的详细信息：
+```bash
+git show HEAD
+```
 
 ---
 
